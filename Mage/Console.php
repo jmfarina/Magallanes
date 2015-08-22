@@ -124,6 +124,8 @@ class Console
             }
         }
 
+        $error = false;
+        
         // Run Command - Check if there is a Configuration Error
         if ($configError !== false) {
             self::output('<red>' . $configError . '</red>', 1, 2);
@@ -149,12 +151,23 @@ class Console
                     throw new Exception('Command execution failed.', $exitCode);
                 }
             } catch (Exception $exception) {
+                $error = true;
                 self::output('<red>' . $exception->getMessage() . '</red>', 1, 2);
             }
         }
 
         if ($showGreetings) {
             self::output('Finished <blue>Magallanes</blue>', 0, 2);
+            if($error && $config->general('outputLogOnError', false)) {
+            	self::$logEnabled = false;//disabling log to avoid loop
+            	self::output('Full log:', 0, 2);
+            	$file = new \SplFileObject(self::$logFile, 'r');
+            	while (!$file->eof()) {
+            		self::output($file->fgets());
+            	}
+            	$file = null;
+            }
+            
             if (file_exists(getcwd() . '/.mage/~working.lock')) {
                 unlink(getcwd() . '/.mage/~working.lock');
             }
