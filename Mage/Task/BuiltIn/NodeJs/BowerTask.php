@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Mage\Task\BuiltIn\NodeJS;
+namespace Mage\Task\BuiltIn\NodeJs;
 
 use Mage\Task\AbstractTask;
 
