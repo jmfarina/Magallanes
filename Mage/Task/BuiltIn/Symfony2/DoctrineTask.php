@@ -5,7 +5,15 @@ namespace Mage\Task\BuiltIn\Symfony2;
 use Mage\Task\BuiltIn\Symfony2\SymfonyAbstractTask;
 
 /**
- * Task to execute Doctrine commands
+ * Task to execute Doctrine commands.
+ * 
+ * Accepts the following params, each corresponding to a command to be executed, and they are executed respecting this order:
+ * <ol>
+ * <li><em>drop</em> (optative): <code>true</code>/<code>false</code> (defaults to <code>false</code>). Whether the database should be dropped. If it fails, it will continue with the next command (if any).</li>
+ * <li><em>create</em> (optative): <code>true</code>/<code>false</code> (defaults to <code>false</code>). Whether the database should be created. On fail, it aborts the task.</li>
+ * <li><em>update</em> (optative): <code>true</code>/<code>false</code> (defaults to <code>false</code>). Whether the schema should be updated. On fail, it aborts the task.</li>
+ * <li><em>loadFixtures</em> (optative): <code>true</code>/<code>false</code> (defaults to <code>false</code>). Whether the fixtures should be loaded <em><strong>WARNING: PURGES EXISTING DATA</strong></em>. On fail, it aborts the task.</li>
+ * </ol>
  */
 class DoctrineTask extends SymfonyAbstractTask
 {
