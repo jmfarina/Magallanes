@@ -163,7 +163,7 @@ class Console
             	self::output('Full log:', 0, 2);
             	$file = new \SplFileObject(self::$logFile, 'r');
             	while (!$file->eof()) {
-            		self::output($file->fgets());
+            		self::output($file->fgets(), 1, 0);
             	}
             	$file = null;
             }
