@@ -37,7 +37,7 @@ class CacheObliterateTask extends SymfonyAbstractTask {
 		$deleteConfig = clone $this->config;
 		$deleteConfig->addParameter ( "recursive", true );
 		$deleteConfig->addParameter ( "force", true );
-		$deleteConfig->addParameter ( "checkPathsExist", true );
+		$deleteConfig->addParameter ( "checkPathsExist", false );//maybe cache is already clear
 		
 		$deleteConfig->addParameter ( "paths", array (
 				"app/cache/" . $env
