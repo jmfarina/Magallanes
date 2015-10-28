@@ -14,14 +14,10 @@ use Mage\Task\BuiltIn\Symfony2\SymfonyAbstractTask;
 use Mage\Task\BuiltIn\Filesystem\DeleteTask;
 
 /**
- * Task for Clearing the Cache
+ * Task for deleting the cache's specified environment directory 
  *
  * Example of usage:
- * symfony2/cache-clear: { env: dev }
- * symfony2/cache-clear: { env: dev, optional: --no-warmup }
- *
- * @author Andrés Montañez <andres@andresmontanez.com>
- * @author Samuel Chiriluta <samuel4x4@gmail.com>
+ * symfony2/cache-obliterate: { env: dev }
  */
 class CacheObliterateTask extends SymfonyAbstractTask {
 	private $deleteTask;
