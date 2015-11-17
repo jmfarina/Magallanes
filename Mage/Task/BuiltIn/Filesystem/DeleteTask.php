@@ -10,7 +10,7 @@ use Mage\Task\SkipException;
  *
  * Usage :
  *   pre-deploy:
- *     - filesystem/delete: {paths: /var/www/myapp/app/cache:/var/www/myapp/app/cache, recursive: false, checkPathsExist: true, owner: www-data, group: www-data, rights: 775}
+ *     - filesystem/delete: {paths: /var/www/myapp/app/cache:/var/www/myapp/app/cache, recursive: false, checkPathsExist: true}
  *     - filesystem/delete:
  *         paths:
  *             - /var/www/myapp/app/cache
