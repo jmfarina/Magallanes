@@ -516,16 +516,20 @@ class DeployCommand extends AbstractCommand implements RequiresEnvironment
                 }
             } catch (RollbackException $e) {
                 Console::output('<red>FAIL, Rollback catched</red> [Message: ' . $e->getMessage() . ']', 0);
+                Console.log($e->getTraceAsString());
                 $this->runRollbackTask($task);
                 $result = false;
             } catch (ErrorWithMessageException $e) {
                 Console::output('<red>FAIL</red> [Message: ' . $e->getMessage() . ']', 0);
+                Console.log($e->getTraceAsString());
                 $result = false;
             } catch (SkipException $e) {
-                Console::output('<yellow>SKIPPED</yellow>', 0);
+                Console::output('<yellow>SKIPPED: ' . $e->getMessage() . '</yellow>', 0);
+                Console.log($e->getTraceAsString());
                 $result = true;
             } catch (Exception $e) {
-                Console::output('<red>FAIL</red>', 0);
+                Console::output('<red>FAIL: ' . $e->getMessage() . '</red>', 0);
+                Console.log($e->getTraceAsString());
                 $result = false;
             }
         } else {
