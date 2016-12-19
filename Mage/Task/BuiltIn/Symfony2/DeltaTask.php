@@ -175,10 +175,11 @@ class DeltaTask extends SymfonyAbstractTask {
 				// Save last delta path to file system
 				file_put_contents ( $lastDeltaFile, $delta );
 			} else {
+				$errorInfo = $stmt->errorInfo ();
 				Console::log ( "---------------------------------" );
 				Console::log ( 'Error executing delta: ' . $delta );
 				Console::log ( "---------------------------------" );
-				Console::log ( "SQL error code " . $stmt->errorInfo () [0] . " ::: Driver error code " . $stmt->errorInfo () [1] . " ::: " . $stmt->errorInfo () [2] );
+				Console::log ( "SQL error code " . $errorInfo[0] . " ::: Driver error code " . $errorInfo[1] . " ::: " . $errorInfo[2] );
 				Console::log ( "---------------------------------" );
 				return false;
 			}
