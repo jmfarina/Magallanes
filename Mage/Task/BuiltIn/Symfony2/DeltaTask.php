@@ -44,14 +44,20 @@ class DeltaTask extends SymfonyAbstractTask {
 		
 		// Get full path of last executed delta or null if none
 		$deployOriginRoot = getcwd () . DIRECTORY_SEPARATOR . $this->config->deployment ( "from" );
+		$deployTargetRoot = $this->config->deployment ( "to" );
 		$lastDeltaFile = $deployOriginRoot . DIRECTORY_SEPARATOR . ".mage" . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "environment" . DIRECTORY_SEPARATOR . "LastDelta" . DIRECTORY_SEPARATOR . $this->getConfig ()->getEnvironment ();
 		
 		if (! file_exists ( $lastDeltaFile ))
 			throw new SkipException ( 'Error fetching path to last delta file. The file most exist. (at least empty). Path: ' . $lastDeltaFile );
 			
 			// MySQL with PDO_MYSQL
-		$parametersYMLFile = $deployOriginRoot . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "parameters.yml";
-		$parametersYML = Yaml::parse ( $parametersYMLFile );
+		$parametersYMLFile = $deployTargetRoot . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "parameters.yml";
+		
+		$remoteYMLContent = "";
+		$this->runCommandRemote("cat " . $parametersYMLFile, $remoteYMLContent);
+		$parametersYML = Yaml::parse ( $remoteYMLContent );
+		//echo "Parameters file: " . $parametersYMLFile . PHP_EOL;
+		//echo var_export($parametersYML, true);
 		$mysql_host = $parametersYML ['parameters'] ["database_host"];
 		$mysql_user = $parametersYML ['parameters'] ["database_user"];
 		$mysql_password = $parametersYML ['parameters'] ["database_password"];
