@@ -99,6 +99,15 @@ class DeployCommand extends AbstractCommand
             $output->writeln(sprintf('<error>%s</error>', $exception->getMessage()));
             $output->writeln('');
             $this->statusCode = 7;
+            
+            if($this->runtime->getConfigOption('display_errors', false) && $this->runtime->getConfigOption('log_file', false)) {
+	            $logFilePath = $this->runtime->getConfigOption('log_file');
+	            $logFile = new \SplFileObject($logFilePath, 'r');
+	            while (!$logFile->eof()) {
+	            	$output->writeln($logFile->fgets());
+	            }
+	            $logFile= null;
+            }
         }
 
         $output->writeln('Finished <fg=blue>Magallanes</>');
