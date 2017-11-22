@@ -24,6 +24,7 @@ use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Exception\ParseException;
 use ReflectionClass;
 use Mage\Runtime\Exception\RuntimeException;
+use Monolog\Formatter\LineFormatter;
 
 /**
  * The Console Application for launching the Mage command in a standalone instance
@@ -83,7 +84,10 @@ class MageApplication extends Application
                 $config['magephp']['log_file'] = $logfile;
 
                 $logger = new Logger('magephp');
-                $logger->pushHandler(new StreamHandler($logfile));
+                $formatter = new LineFormatter(null, null, true, true);
+                $handler = new StreamHandler($logfile);
+                $handler->setFormatter($formatter);
+                $logger->pushHandler($handler);
             }
 
             $this->runtime->setConfiguration($config['magephp']);
