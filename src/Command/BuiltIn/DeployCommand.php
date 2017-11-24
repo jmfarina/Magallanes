@@ -104,7 +104,7 @@ class DeployCommand extends AbstractCommand
 	            $logFilePath = $this->runtime->getConfigOption('log_file');
 	            $logFile = new \SplFileObject($logFilePath, 'r');
 	            while (!$logFile->eof()) {
-	            	$output->writeln($logFile->fgets());
+	            	$output->write($logFile->fgets());
 	            }
 	            $logFile= null;
             }
